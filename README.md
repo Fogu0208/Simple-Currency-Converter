@@ -13,16 +13,6 @@
 - **收藏常用汇率对**：点击结果区收藏，常用列表一键加载
 - **转换历史**：自动记录最近 5 条（LocalStorage 持久化）
 - **统一错误提示**：Axios 拦截器统一处理网络/接口错误并提示
-
-## 面试官可关注的实现点
-
-- **状态管理与持久化**：Pinia Store 维护币种、汇率缓存、收藏/历史，并将收藏与历史写入 LocalStorage
-- **API 分层**：
-  - `src/api/request.ts` 封装 Axios 实例（baseURL、超时、响应拦截器）
-  - `src/api/exchange.ts` 封装汇率接口（通过环境变量读取 API Key）
-- **类型安全**：对汇率响应结构定义 `ExchangeRateResponse`，并补充 `vite-env.d.ts` 让 `import.meta.env` 有类型提示
-- **安全配置**：API Key 通过 `VITE_API_KEY` 注入，不在仓库中硬编码；`.env` 已加入 `.gitignore`
-
 ## 项目结构
 
 ```
@@ -72,10 +62,3 @@ npm run build
 - 在 Vercel 项目设置中添加环境变量：`VITE_API_KEY`
 - 其余默认即可（Vite 项目常见配置：Build=`npm run build`，Output=`dist`）
 - 修改环境变量后需要重新部署（Redeploy）才会生效
-
-## 后续可优化方向
-
-- 汇率缓存策略（按 baseCurrency 缓存/过期策略），减少重复请求
-- 使用 `/codes` 完整展示“币种名称 + 代码”，提升可用性
-- 增加测试：`utils` 单元测试、核心交互的 E2E 测试
-- 可访问性与国际化（i18n）
